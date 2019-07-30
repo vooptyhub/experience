@@ -1,26 +1,23 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
+import Helmet from 'react-helmet';
 import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import {CssBaseline} from '@material-ui/core'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    render() {
+        return (
+            <Fragment>
+                <CssBaseline/>
+                <Helmet title="You Are Doing Great"/>
+                <div className="App-header">
+                    <img src={logo} className="App-logo" alt="logo"/>
+                    <h2>Welcome to experience app</h2>
+                </div>
+                {this.props.children}
+            </Fragment>
+        );
+    }
 }
 
 export default App;
