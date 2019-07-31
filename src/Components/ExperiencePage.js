@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ExperiencePage = (props) => {
-    const {title, children, dinner, drink, location} = props;
+    const {title, children, description} = props;
     const classes = useStyles(props);
     const [open, setOpen] = useState(false);
 
@@ -60,21 +60,7 @@ export const ExperiencePage = (props) => {
                         </Typography>
                     </Grid>
                     <Grid item container direction="column">
-                        <List>
-                            <ListItem className={classes.item}>
-                                <ListItemIcon>
-                                    <Restaurant/>
-                                </ListItemIcon>
-                                <ListItemText>{dinner}</ListItemText>
-                            </ListItem>
-                            <ListItem className={classes.item}>
-                                <ListItemIcon>
-                                    <LocalDrink/>
-                                </ListItemIcon><ListItemText>{drink}</ListItemText></ListItem>
-                            <ListItem className={classes.item}><ListItemIcon>
-                                <LocationOn/>
-                            </ListItemIcon><ListItemText>{location}</ListItemText></ListItem>
-                        </List>
+                        {description}
                         {children}
                     </Grid>
                     <Grid item container>

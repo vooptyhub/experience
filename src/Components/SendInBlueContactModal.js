@@ -9,13 +9,15 @@ import {
     makeStyles, Radio,
     RadioGroup,
     TextField,
-    DialogActions
+    DialogActions, List, ListItem, ListItemIcon, ListItemText
 } from "@material-ui/core";
 import React, {useState} from "react";
+import {LocalDrink, LocationOn, Restaurant} from "@material-ui/icons";
 
 
 const useFromStyles = makeStyles((theme) => ({
     root: {},
+    item: {padding: 0},
     formControl: {
         display: 'flex',
         flexDirection: 'column',
@@ -32,12 +34,18 @@ const useFromStyles = makeStyles((theme) => ({
 export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
     const classes = useFromStyles();
 
+    const {dinner, drink, location} = rest;
     const [values, setValues] = useState({
         EMAIL: '',
         VISITING: "2",
         VISITING_FROM: '',
         EXPERIENCE: rest.title
     });
+
+    const [loading, setLoading] = useState(false);
+
+    const [showDetails, setShowDetails] = useState(false);
+
     const handleChange = name => event => {
         setValues({...values, [name]: event.target.value});
     };
@@ -48,7 +56,7 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
         if (emailError) {
             return
         }
-
+        setLoading(true);
         var formData = new FormData();
 
         Object.keys(values).forEach(k => formData.append(k, values[k]));
@@ -57,6 +65,33 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
             method: "POST",
             body: formData
         });
+        setLoading(false)
+        setShowDetails(true)
+    }
+    if (showDetails) {
+        return (
+            <Dialog open={open}
+                    onClose={() => setOpen(false)}>
+                <DialogTitle>Here is your experience</DialogTitle>
+                <DialogContent>
+                    <List>
+                        <ListItem className={classes.item}>
+                            <ListItemIcon>
+                                <Restaurant/>
+                            </ListItemIcon>
+                            <ListItemText>{dinner}</ListItemText>
+                        </ListItem>
+                        <ListItem className={classes.item}>
+                            <ListItemIcon>
+                                <LocalDrink/>
+                            </ListItemIcon><ListItemText>{drink}</ListItemText></ListItem>
+                        <ListItem className={classes.item}><ListItemIcon>
+                            <LocationOn/>
+                        </ListItemIcon><ListItemText>{location}</ListItemText></ListItem>
+                    </List>
+                </DialogContent>
+            </Dialog>
+        )
     }
     return (<Dialog open={open}
                     onClose={() => setOpen(false)}>
@@ -77,11 +112,13 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
                             onChange={handleChange('EMAIL')}
                         />
 
-                        {emailError && <FormHelperText>Invalid email, expected format is abc@xyz.com</FormHelperText>}
+                        {emailError &&
+                        <FormHelperText>Invalid email, expected format is abc@xyz.com</FormHelperText>}
                     </FormControl></Grid>
                 <Grid item>
                     <FormControl component="fieldset" className={classes.formControl}>
-                        <FormLabel component="legend" className={classes.label}>Are you local or visiting?</FormLabel>
+                        <FormLabel component="legend" className={classes.label}>Are you local or
+                            visiting?</FormLabel>
                         <RadioGroup
                             name="VISITING"
                             value={values.VISITING}
@@ -108,6 +145,7 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
         </DialogContent>
         <DialogActions>
             <Button variant="contained" color="secondary"
+                    disabled={loading}
                     onClick={submit}>Receive experience description</Button>
         </DialogActions>
     </Dialog>)
