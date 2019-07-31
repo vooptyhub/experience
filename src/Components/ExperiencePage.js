@@ -1,6 +1,23 @@
 import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {Paper, Grid, Typography, Button, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
+import {
+    Paper,
+    Grid,
+    Typography,
+    Button,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    TextField,
+    Radio,
+    RadioGroup,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    InputLabel,
+    FormHelperText,
+} from '@material-ui/core';
 import {LocalDrink, LocationOn, Restaurant, ArrowBack} from "@material-ui/icons";
 import {Link} from 'react-router-dom'
 
@@ -66,16 +83,102 @@ export const ExperiencePage = (props) => {
                         {children}
                     </Grid>
                     <Grid item container>
-                        {showForm ? <div style={{width: '100%'}} dangerouslySetInnerHTML={{
-                            __html: `<iframe height="408" title="Embedded Wufoo Form" allowTransparency="true" frameBorder="0"
-                            scrolling="no" style="width:100%;border:none"
-                            src="https://nastyakh.wufoo.com/embed/z1f178q612dcbgu/"><a
-                        href="https://nastyakh.wufoo.com/forms/z1f178q612dcbgu/">Fill out my Wufoo form!</a></iframe>`
-                        }}/> : <Button variant="contained" color="secondary"
-                                       onClick={() => setShowFrom(true)}>Get</Button>}
+                        {showForm ? <ContactFrom/> : <Button variant="contained" color="secondary"
+                                                             onClick={() => setShowFrom(true)}>Get</Button>}
                     </Grid>
                 </Grid>
             </Paper>
         </Grid>
     );
+}
+
+const useFromStyles = makeStyles((theme) => ({
+    formControl: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    label: {
+        marginBottom: theme.spacing(1),
+        position: 'relative',
+        transform: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        fontWeight: 'bold',
+    }
+}));
+export const ContactFrom = () => {
+    const classes = useFromStyles();
+
+    const [values, setValues] = useState({
+        EMAIL: '',
+        VISITING: "2",
+        VISITING_FROM: '',
+    });
+    const handleChange = name => event => {
+        setValues({...values, [name]: event.target.value});
+    };
+
+    const emailError = values.EMAIL && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i.test(values.EMAIL);
+
+    const submit = () => {
+        if (emailError) {
+            return
+        }
+
+        var formData = new FormData();
+
+        Object.keys(values).forEach(k => formData.append(k, values[k]));
+
+        fetch("https://sibforms.com/serve/MUIEAOcRsCQTqqddysTZ4cAPPQrevduL9Fwd3iGOJKRTpcUTQPwaUr8wRnUW6Pn5-PpI6Dx01GJ9r9Luafvt70XZxLTLKwWbj7snupwOlzeVzSENNVeRBWqrVSUiI8ZR6Ws75fnljeMeIynmLGwIUhH23coDDUNXJ4whGqmbBNJM2PTYTV4Mfps_D0YoNKIjyQssaUYcXEAu9Tuq?isAjax=1", {
+            method: "POST",
+            body: formData
+        });
+    }
+    return (<Grid container direction="column" spacing={2}>
+        <Grid item>
+            <FormControl className={classes.formControl} error={emailError}>
+                <InputLabel htmlFor='email' className={classes.label}>Email:
+                </InputLabel>
+                <TextField
+                    id="email"
+                    placeholder="For e.g abc@xyz.com"
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    value={values.EMAIL}
+                    onChange={handleChange('EMAIL')}
+                />
+
+                {emailError && <FormHelperText>Invalid email, expected format is abc@xyz.com</FormHelperText>}
+            </FormControl></Grid>
+        <Grid item>
+            <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend" className={classes.label}>Are you local or visiting?</FormLabel>
+                <RadioGroup
+                    name="VISITING"
+                    value={values.VISITING}
+                    onChange={handleChange('VISITING')}>
+                    <FormControlLabel value="1" control={<Radio/>} label="Local"/>
+                    <FormControlLabel value="2" control={<Radio/>} label="Visiting"/>
+                </RadioGroup>
+            </FormControl></Grid>
+        {values.VISITING === "2" &&
+        <Grid item>
+            <FormControl className={classes.formControl}>
+                <InputLabel htmlFor='VISITING_FROM' className={classes.label}>Where are you visiting from?
+                </InputLabel>
+                <TextField
+                    id="VISITING_FROM"
+                    placeholder="City or Town"
+                    name="VISITING_FROM"
+                    value={values.VISITING_FROM}
+                    onChange={handleChange('VISITING_FROM')}
+                />
+            </FormControl>
+        </Grid>}
+        <Grid item container>
+            <Button variant="contained" color="secondary"
+                    onClick={submit}>Send</Button>
+        </Grid>
+    </Grid>)
 }
