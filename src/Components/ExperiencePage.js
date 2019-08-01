@@ -5,14 +5,8 @@ import {
     Grid,
     Typography,
     Button,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Dialog,
-    DialogContent
 } from '@material-ui/core';
-import {LocalDrink, LocationOn, Restaurant, ArrowBack} from "@material-ui/icons";
+import {ArrowBack} from "@material-ui/icons";
 import {Link} from 'react-router-dom'
 import {SendInBlueContactModal} from "./SendInBlueContactModal";
 
@@ -38,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundImage: ({image}) => `url('${image}')`,
         backgroundPosition: 'center'
+    },
+    button: {
+        marginTop: theme.spacing(2)
     }
 }));
 
@@ -53,23 +50,25 @@ export const ExperiencePage = (props) => {
             </Grid>
             <Paper className={classes.root}>
                 <div className={classes.image}>&nbsp;</div>
-                <Grid container direction="column" className={classes.content} spacing={2}>
+                <Grid container direction="column" className={classes.content}>
                     <Grid item container>
                         <Typography gutterBottom variant="h5" component="h2">
                             {title}
                         </Typography>
                     </Grid>
                     <Grid item container direction="column">
-                        {description}
+                        <Typography>
+                            {description}</Typography>
                         {children}
                     </Grid>
-                    <Grid item container>
+                    <Grid item container className={classes.button}>
                         <Button variant="contained" color="secondary"
                                 onClick={() => setOpen(true)}>Get</Button>
                     </Grid>
                 </Grid>
             </Paper>
             <SendInBlueContactModal open={open} setOpen={setOpen} {...props}/>
+
         </Grid>
     );
 }

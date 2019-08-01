@@ -6,17 +6,38 @@ import {
     FormLabel,
     Grid,
     InputLabel,
-    makeStyles, Radio,
+    makeStyles,
+    Radio,
+    AppBar,
+    Toolbar,
+    IconButton,
+    Typography,
+    useTheme,
+    useMediaQuery,
     RadioGroup,
     TextField,
     DialogActions, List, ListItem, ListItemIcon, ListItemText
 } from "@material-ui/core";
 import React, {useState} from "react";
-import {LocalDrink, LocationOn, Restaurant} from "@material-ui/icons";
+import {LocalDrink, LocationOn, Restaurant, Close} from "@material-ui/icons";
 
-
+const Header = ({title, onClose}) => (<AppBar style={{position: 'relative'}}>
+    <Toolbar>
+        <IconButton color="inherit" onClick={onClose}>
+            <Close/>
+        </IconButton>
+        <Typography variant="h6">
+            {title}
+        </Typography>
+    </Toolbar>
+</AppBar>);
 const useFromStyles = makeStyles((theme) => ({
-    root: {},
+    root: {
+        padding: theme.spacing(1),
+    },
+    appBar: {
+        position: 'relative',
+    },
     item: {padding: 0},
     formControl: {
         display: 'flex',
@@ -46,11 +67,14 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
 
     const [showDetails, setShowDetails] = useState(false);
 
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     const handleChange = name => event => {
         setValues({...values, [name]: event.target.value});
     };
 
-    const emailError = values.EMAIL && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i.test(values.EMAIL);
+    const emailError = !values.EMAIL || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i.test(values.EMAIL);
 
     const submit = async () => {
         if (emailError) {
@@ -68,11 +92,13 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
         setLoading(false)
         setShowDetails(true)
     }
+
+    const dialogProps = {open, onClose: () => setOpen(false), fullScreen};
+
     if (showDetails) {
         return (
-            <Dialog open={open}
-                    onClose={() => setOpen(false)}>
-                <DialogTitle>Here is your experience</DialogTitle>
+            <Dialog {...dialogProps}>
+                <Header title="Here is your experience" onClose={dialogProps.onClose}/>
                 <DialogContent>
                     <List>
                         <ListItem className={classes.item}>
@@ -90,12 +116,22 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
                         </ListItemIcon><ListItemText>{location}</ListItemText></ListItem>
                     </List>
                 </DialogContent>
+                <DialogActions>
+                    <div dangerouslySetInnerHTML={{
+                        __html: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick" />
+<input type="hidden" name="hosted_button_id" value="M7367VPKPA7EE" />
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+</form>
+`
+                    }}/>
+                </DialogActions>
             </Dialog>
         )
     }
-    return (<Dialog open={open}
-                    onClose={() => setOpen(false)}>
-        <DialogTitle>Tell us a little bit about yourself</DialogTitle>
+    return (<Dialog {...dialogProps}>
+        <Header title="Tell us a little bit about yourself" onClose={dialogProps.onClose}/>
         <DialogContent>
             <Grid container direction="column" spacing={2} className={classes.root}>
                 <Grid item>
@@ -145,7 +181,7 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
         </DialogContent>
         <DialogActions>
             <Button variant="contained" color="secondary"
-                    disabled={loading}
+                    disabled={loading || emailError}
                     onClick={submit}>Receive experience description</Button>
         </DialogActions>
     </Dialog>)
