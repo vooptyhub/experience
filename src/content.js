@@ -2,16 +2,9 @@ import russianSpy from './Pages/img/white-house-kgb.jpg'
 import houseOfCards from './Pages/img/House_of_Cards_title_card.png'
 import Georgetown from './Pages/img/Georgetown.png'
 import dcGay from './Pages/img/dc-gay.jpeg'
+import BlagdenAlley from './Pages/img/BlagdenAlley.png'
 
-export const Content = [{
-    img: russianSpy,
-    name: 'Russian Spy',
-    shortDescription: 'Explore DC like a russian spy',
-    description: 'Explore DC like a russian spy. Go where they go, drink what they drunk, learn how to be invisible in public.',
-    dinner: 'Russia house',
-    drink: 'Mari Vanna',
-    location: 'Spy museum'
-},
+export const Content = [
     {
         img: houseOfCards,
         name: 'House Of Cards',
@@ -22,21 +15,22 @@ export const Content = [{
         location: 'Row houses along T Street in NW'
     },
     {
-        img: Georgetown,
-        name: 'Georgetown',
-        shortDescription: 'Explore Georgetown while enjoying this experience',
-        description: 'Georgetown is a charming area with Federal-style architecture, cobblestone streets and fashion and design shops. The dining scene is defined by upmarket restaurants and waterfront seafood spots, while nightlife spans boisterous college bars, traditional taverns and intimate live music lounges. Georgetown Waterfront Park has a riverside promenade and gardens, and there\'s a bike path along the C&O Canal.',
-        dinner: 'Filomena',
-        drink: 'Cup cake from Baked and wired',
-        location: 'Grab a drink from The Alex'
-    },
-    {   img: BlagdenAlley,
+        img: BlagdenAlley,
         name: 'Blagden Alley',
         shortDescription: 'Exerience the Instagram Paradise',
         description: 'Grab a friend, or two or three or four and explore few of these beautiful spots while taking those pictures for the gram. Start your evening with a classy cocktail, enjoy a meal that explodes your taste buds and finally cool off with a tasty desert',
         dinner: 'Espita Mezcaleria',
         drink: 'Columbia Room',
         location: 'Walk around Blagden Alley, its an instagram paradise'
+    },
+    {
+        img: russianSpy,
+        name: 'Russian Spy',
+        shortDescription: 'Explore DC like a russian spy',
+        description: 'Explore DC like a russian spy. Go where they go, drink what they drunk, learn how to be invisible in public.',
+        dinner: 'Russia house',
+        drink: 'Mari Vanna',
+        location: 'Spy museum'
     },
     {
         img: dcGay,
@@ -46,4 +40,13 @@ export const Content = [{
         dinner: 'Annie’s',
         drink: 'Number 9 Lounge Bar',
         location: 'Visit Hirshhorn Museum and do some shopping at City Center'
+    },
+    {
+        img: Georgetown,
+        name: 'Georgetown',
+        shortDescription: 'Explore Georgetown while enjoying this experience',
+        description: 'Georgetown is a charming area with Federal-style architecture, cobblestone streets and fashion and design shops. The dining scene is defined by upmarket restaurants and waterfront seafood spots, while nightlife spans boisterous college bars, traditional taverns and intimate live music lounges. Georgetown Waterfront Park has a riverside promenade and gardens, and there\'s a bike path along the C&O Canal.',
+        dinner: 'Filomena',
+        drink: 'Cup cake from Baked and wired',
+        location: 'Grab a drink from The Alex'
     }]
