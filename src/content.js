@@ -24,15 +24,6 @@ export const Content = [
         location: 'Walk around Blagden Alley, its an instagram paradise'
     },
     {
-        img: russianSpy,
-        name: 'Russian Spy',
-        shortDescription: 'Explore DC like a russian spy',
-        description: 'Explore DC like a russian spy. Go where they go, drink what they drunk, learn how to be invisible in public.',
-        dinner: 'Russia house',
-        drink: 'Mari Vanna',
-        location: 'Spy museum'
-    },
-    {
         img: dcGay,
         name: 'The Rainbow',
         shortDescription: 'Be Gay in DC',
@@ -49,4 +40,13 @@ export const Content = [
         dinner: 'Filomena',
         drink: 'Cup cake from Baked and wired',
         location: 'Grab a drink from The Alex'
+    },
+    {
+        img: russianSpy,
+        name: 'Russian Spy',
+        shortDescription: 'Explore DC like a russian spy',
+        description: 'Explore DC like a russian spy. Go where they go, drink what they drunk, learn how to be invisible in public.',
+        dinner: 'Russia house',
+        drink: 'Mari Vanna',
+        location: 'Spy museum'
     }]
