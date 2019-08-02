@@ -27,8 +27,16 @@ export const Content = [{
         shortDescription: 'Explore Georgetown while enjoying this experience',
         description: 'Georgetown is a charming area with Federal-style architecture, cobblestone streets and fashion and design shops. The dining scene is defined by upmarket restaurants and waterfront seafood spots, while nightlife spans boisterous college bars, traditional taverns and intimate live music lounges. Georgetown Waterfront Park has a riverside promenade and gardens, and there\'s a bike path along the C&O Canal.',
         dinner: 'Filomena',
-        drink: 'Cupcake from Baked and Wire',
-        location: 'Watch sunset with river walk'
+        drink: 'Cup cake from Baked and wired',
+        location: 'Grab a drink from The Alex'
+    },
+    {   img: BlagdenAlley,
+        name: 'Blagden Alley',
+        shortDescription: 'Exerience the Instagram Paradise',
+        description: 'Grab a friend, or two or three or four and explore few of these beautiful spots while taking those pictures for the gram. Start your evening with a classy cocktail, enjoy a meal that explodes your taste buds and finally cool off with a tasty desert',
+        dinner: 'Espita Mezcaleria',
+        drink: 'Columbia Room',
+        location: 'Walk around Blagden Alley, its an instagram paradise'
     },
     {
         img: dcGay,
