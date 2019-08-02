@@ -3,6 +3,7 @@ import houseOfCards from './Pages/img/House_of_Cards_title_card.png'
 import Georgetown from './Pages/img/Georgetown.png'
 import dcGay from './Pages/img/dc-gay.jpeg'
 import BlagdenAlley from './Pages/img/BlagdenAlley.png'
+import Zoo from './Pages/img/Zoo-panda.jpg'
 
 export const Content = [
     {
@@ -49,4 +50,13 @@ export const Content = [
         dinner: 'Russia house',
         drink: 'Mari Vanna',
         location: 'Spy museum'
+    },
+	{
+        img: Zoo ,
+        name: 'Zooxpeirence',
+        shortDescription: 'Visit Zoo, say hi to Pandas',
+        description: 'Zoo saves species, inspires and educates people. Check out a huge animal family of more than 390 species.',
+        dinner: 'Food on the go at Julia`s Empanadas (2452 18th St NW)',
+        drink: 'Gelato at Pitango Gelato (1841 Columbia Rd NW)',
+        location: 'National Zoological Park'
     }]
