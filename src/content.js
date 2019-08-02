@@ -53,8 +53,8 @@ export const Content = [
     },
 	{
         img: Zoo ,
-        name: 'Zooxpeirence',
-        shortDescription: 'Visit Zoo, say hi to Pandas',
+        name: 'Zooxperience',
+        shortDescription: 'Visit Zoo, say Hi to Pandas',
         description: 'Zoo saves species, inspires and educates people. Check out a huge animal family of more than 390 species.',
         dinner: 'Food on the go at Julia`s Empanadas (2452 18th St NW)',
         drink: 'Gelato at Pitango Gelato (1841 Columbia Rd NW)',
