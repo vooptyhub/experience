@@ -1,6 +1,7 @@
 import russianSpy from './Pages/img/white-house-kgb.jpg'
 import houseOfCards from './Pages/img/House_of_Cards_title_card.png'
 import Georgetown from './Pages/img/Georgetown.png'
+import dcGay from './Pages/img/dc-gay.jpeg'
 
 export const Content = [{
     img: russianSpy,
@@ -28,4 +29,13 @@ export const Content = [{
         dinner: 'Filomena',
         drink: 'Cupcake from Baked and Wire',
         location: 'Watch sunset with river walk'
+    },
+    {
+        img: dcGay,
+        name: 'The Rainbow',
+        shortDescription: 'Be Gay in DC',
+        description: 'Washington, DC is one of the most diverse – and welcoming – cities in the world. At once an international crossroads and an all-American hometown, the District is home to people and preferences from every color of the rainbow. Tour historic LGBTQ sites, grab a drink at the best gay and lesbian bars in the city, rock out at the Capital Pride Parade and Concert and so much more. Make your DC adventure all your own.',
+        dinner: 'Annie’s',
+        drink: 'Number 9 Lounge Bar',
+        location: 'Visit Hirshhorn Museum and do some shopping at City Center'
     }]
