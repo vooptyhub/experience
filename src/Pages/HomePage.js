@@ -7,7 +7,6 @@ import _ from 'lodash'
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
-        height: `calc(100% - ${theme.spacing(2)}px)`
     },
 }));
 export const HomePage = () => {
