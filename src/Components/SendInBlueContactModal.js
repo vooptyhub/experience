@@ -1,7 +1,7 @@
 import {
     Button, Dialog, DialogContent,
     FormControl, FormControlLabel,
-    DialogTitle,
+    SnackbarContent,
     FormHelperText,
     FormLabel,
     Grid,
@@ -16,10 +16,11 @@ import {
     useMediaQuery,
     RadioGroup,
     TextField,
-    DialogActions, List, ListItem, ListItemIcon, ListItemText
+    DialogActions, List, ListItem, ListItemIcon, ListItemText,
 } from "@material-ui/core";
 import React, {useState} from "react";
 import {LocalDrink, LocationOn, Restaurant, Close} from "@material-ui/icons";
+import {green} from "@material-ui/core/colors";
 
 const Header = ({title, onClose}) => (<AppBar style={{position: 'relative'}}>
     <Toolbar>
@@ -50,12 +51,18 @@ const useFromStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         fontWeight: 'bold',
-    }
+    },
+    success: {
+        backgroundColor: green[600],
+    },
+    paypal: {
+        justifyContent: 'center'
+    },
 }));
 export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
     const classes = useFromStyles();
 
-    const {dinner, drink, location} = rest;
+    const {dinner, drink, location, title} = rest;
     const [values, setValues] = useState({
         EMAIL: '',
         VISITING: "2",
@@ -68,11 +75,12 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
     const [showDetails, setShowDetails] = useState(false);
 
     const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const handleChange = name => event => {
         setValues({...values, [name]: event.target.value});
     };
+
 
     const emailError = !values.EMAIL || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i.test(values.EMAIL);
 
@@ -93,7 +101,7 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
         setShowDetails(true)
     }
 
-    const dialogProps = {open, onClose: () => setOpen(false), fullScreen};
+    const dialogProps = {open, onClose: () => setOpen(false), fullScreen: smallScreen, fullWidth: !smallScreen, maxWidth: smallScreen ? null : "sm"};
 
     if (showDetails) {
         return (
@@ -113,20 +121,27 @@ export const SendInBlueContactModal = ({open, setOpen, ...rest}) => {
                             </ListItemIcon><ListItemText>{drink}</ListItemText></ListItem>
                         <ListItem className={classes.item}><ListItemIcon>
                             <LocationOn/>
-                        </ListItemIcon><ListItemText>{location}</ListItemText></ListItem>
-                    </List>
-                </DialogContent>
-                <DialogActions>
-                    <div dangerouslySetInnerHTML={{
-                        __html: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        </ListItemIcon><ListItemText>{location}</ListItemText>
+                        </ListItem>
+                        <ListItem className={classes.paypal}>
+                            <SnackbarContent className={classes.success}
+                                             message={<Grid container direction="column" alignItems="center">
+                                                 <Typography align="center">Help us to bring more awesome local
+                                                     experiences to
+                                                     you!</Typography>
+                                                 <div dangerouslySetInnerHTML={{
+                                                     __html: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick" />
 <input type="hidden" name="hosted_button_id" value="M7367VPKPA7EE" />
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
 <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
 </form>
 `
-                    }}/>
-                </DialogActions>
+                                                 }}/>
+                                             </Grid>}/>
+                        </ListItem>
+                    </List>
+                </DialogContent>
             </Dialog>
         )
     }

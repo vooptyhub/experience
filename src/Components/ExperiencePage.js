@@ -68,7 +68,6 @@ export const ExperiencePage = (props) => {
                 </Grid>
             </Paper>
             <SendInBlueContactModal open={open} setOpen={setOpen} {...props}/>
-
         </Grid>
     );
 }
